@@ -87,49 +87,37 @@ const Menu = () => {
 
   const styles = {
     main: {
-      padding: '2rem',
       fontFamily: 'Arial, sans-serif',
     },
     header: {
       textAlign: 'center' as 'center',
-      marginBottom: '3rem',
+      marginBottom: '2rem',
     },
     title: {
-      fontSize: '3rem',
       color: colors.primary,
     },
     subtitle: {
-      fontSize: '1.2rem',
       color: colors.text,
     },
     filterContainer: {
       textAlign: 'center' as 'center',
-      marginBottom: '3rem',
     },
     filterButton: {
-      margin: '0 0.5rem',
-      padding: '0.8rem 1.5rem',
-      fontSize: '1rem',
       backgroundColor: colors.primary,
       color: '#fff',
       border: 'none',
       borderRadius: '5px',
       cursor: 'pointer',
+      transition: 'all 0.3s ease',
     },
     menuSection: {
-      marginBottom: '3rem',
+      marginBottom: '2rem',
     },
     sectionTitle: {
-      fontSize: '2rem',
       color: colors.primary,
       borderBottom: `2px solid ${colors.primary}`,
       paddingBottom: '0.5rem',
-      marginBottom: '2rem',
-    },
-    menuGrid: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem',
+      marginBottom: '1.5rem',
     },
     menuItem: {
       border: `1px solid ${colors.primary}`,
@@ -138,46 +126,43 @@ const Menu = () => {
       textAlign: 'center' as 'center',
       display: 'flex',
       flexDirection: 'column' as 'column',
-      height: '600px', // Consistent card height
     },
     itemImage: {
       width: '100%',
-      height: '65%', // 65% of card height
+      height: '65%',
       objectFit: 'cover' as 'cover',
       flex: '0 0 65%',
     },
     itemContent: {
-      height: '35%', // 35% of card height
+      height: '35%',
       flex: '1 1 35%',
-      padding: '1.5rem',
+      padding: '1rem',
       display: 'flex',
       flexDirection: 'column' as 'column',
       justifyContent: 'center',
       overflow: 'hidden',
     },
     itemName: {
-      fontSize: '1.5rem',
       color: colors.primary,
-      margin: '1rem 0 0.5rem', // Increased top margin to move title down
+      margin: '0.5rem 0',
     },
     itemDescription: {
-      fontSize: '1rem',
       color: colors.text,
       marginBottom: '1rem',
+      lineHeight: 1.4,
     },
     itemPrice: {
-      fontSize: '1.2rem',
       fontWeight: 'bold' as 'bold',
       color: colors.primary,
     },
     addButton: {
-      padding: '0.5rem 1rem',
       backgroundColor: colors.primary,
       color: '#fff',
       border: 'none',
       borderRadius: '5px',
       cursor: 'pointer',
       marginTop: '1rem',
+      transition: 'all 0.3s ease',
     },
   };
 
@@ -211,14 +196,14 @@ const Menu = () => {
 
   const renderMenuItems = (items: any[], sectionTitle: string, startIdx: number) => (
     <section style={styles.menuSection}>
-      <h2 style={styles.sectionTitle}>{sectionTitle}</h2>
-      <div style={styles.menuGrid}>
+      <h2 className="section-title" style={styles.sectionTitle}>{sectionTitle}</h2>
+      <div className="menu-grid">
         {items.map((item, idx) => (
           <div
             key={item.name}
+            className={`menu-item menu-card${visible[startIdx + idx] ? ' visible' : ''}`}
             style={styles.menuItem}
-            className={`menu-card${visible[startIdx + idx] ? ' visible' : ''}`}
-            ref={el => refs.current[startIdx + idx] = el}
+            ref={(el) => { refs.current[startIdx + idx] = el; }}
             data-index={startIdx + idx}
           >
             <img
@@ -228,10 +213,10 @@ const Menu = () => {
               className="menu-image"
             />
             <div style={styles.itemContent}>
-              <h3 style={styles.itemName}>{item.name}</h3>
-              <p style={styles.itemDescription}>{item.description}</p>
-              <p style={styles.itemPrice}>₦{item.price.toFixed(2)}</p>
-              <button style={styles.addButton} onClick={() => addToCart(item)}>Add to Cart</button>
+              <h3 className="item-name" style={styles.itemName}>{item.name}</h3>
+              <p className="item-description" style={styles.itemDescription}>{item.description}</p>
+              <p className="item-price" style={styles.itemPrice}>₦{item.price.toFixed(2)}</p>
+              <button className="add-button" style={styles.addButton} onClick={() => addToCart(item)}>Add to Cart</button>
             </div>
           </div>
         ))}
@@ -240,18 +225,18 @@ const Menu = () => {
   );
 
   return (
-    <main style={styles.main}>
+    <main className="container responsive-padding" style={styles.main}>
       <header style={styles.header}>
-        <h1 style={styles.title}>Our Menu</h1>
-        <p style={styles.subtitle}>Explore our wide range of delicious dishes, made with the freshest ingredients.</p>
+        <h1 className="menu-title" style={styles.title}>Our Menu</h1>
+        <p className="menu-subtitle" style={styles.subtitle}>Explore our wide range of delicious dishes, made with the freshest ingredients.</p>
       </header>
 
-      <div style={styles.filterContainer}>
-        <button style={styles.filterButton} onClick={() => setCategory('all')}>All</button>
-        <button style={styles.filterButton} onClick={() => setCategory('appetizers')}>Appetizers</button>
-        <button style={styles.filterButton} onClick={() => setCategory('mainCourses')}>Main Courses</button>
-        <button style={styles.filterButton} onClick={() => setCategory('soups')}>Soup</button>
-        <button style={styles.filterButton} onClick={() => setCategory('desserts')}>Desserts</button>
+      <div className="filter-container" style={styles.filterContainer}>
+        <button className="filter-button" style={styles.filterButton} onClick={() => setCategory('all')}>All</button>
+        <button className="filter-button" style={styles.filterButton} onClick={() => setCategory('appetizers')}>Appetizers</button>
+        <button className="filter-button" style={styles.filterButton} onClick={() => setCategory('mainCourses')}>Main Courses</button>
+        <button className="filter-button" style={styles.filterButton} onClick={() => setCategory('soups')}>Soup</button>
+        <button className="filter-button" style={styles.filterButton} onClick={() => setCategory('desserts')}>Desserts</button>
       </div>
 
       {sectionMeta.map(({ title, items, startIdx }) => renderMenuItems(items, title, startIdx))}
